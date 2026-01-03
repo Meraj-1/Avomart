@@ -6,6 +6,7 @@ import WorkInProgress from "./components/WorkInprogress"
 import QualityProcess from "./components/QualityProcess"
 import Testimonials from "./components/Testimonials"
 import ContactSection from "./components/ContactSection"
+import Footer from "./components/Footer"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
 <QualityProcess/>
 <Testimonials/>
 <ContactSection/>
+<Footer/>
     </>
   )
 }
