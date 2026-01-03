@@ -4,6 +4,8 @@ import OurStory from "./components/OurStory"
 import Avocados from "./components/Avacados"
 import WorkInProgress from "./components/WorkInprogress"
 import QualityProcess from "./components/QualityProcess"
+import Testimonials from "./components/Testimonials"
+
 
 function App() {
 
@@ -14,6 +16,7 @@ function App() {
       <Avocados/>
 {/* <WorkInProgress/> */}
 <QualityProcess/>
+<Testimonials/>
     </>
   )
 }
