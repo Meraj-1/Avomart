@@ -82,14 +82,14 @@ export default function AvocadoShowcase() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10">
-            <hr/>
+      <div className="relative ">
+      
         {avocados.map((item, i) => (
           <div
             key={i}
             ref={(el) => (sections.current[i] = el)}
             data-index={i}
-            className="min-h-[50vh] flex items-center"
+            className="h-[50vh] md:h-[80vh] flex items-center"
           >
         
             <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

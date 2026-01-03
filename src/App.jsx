@@ -3,7 +3,7 @@ import Header from "./components/Header"
 import OurStory from "./components/OurStory"
 import Avocados from "./components/Avacados"
 import WorkInProgress from "./components/WorkInprogress"
-
+import QualityProcess from "./components/QualityProcess"
 
 function App() {
 
@@ -13,6 +13,7 @@ function App() {
             <OurStory/>
       <Avocados/>
 {/* <WorkInProgress/> */}
+<QualityProcess/>
     </>
   )
 }
