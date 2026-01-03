@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// ✅ Use proper imports for Vite
 import Hass from "../assets/Hass-Avocado.png";
 import Fuerte from "../assets/Fuerte-avocado.png";
 import Reed from "../assets/Reed-Avocado.png";
@@ -9,110 +8,134 @@ import Bacon from "../assets/Bacon-Avocado.png";
 
 const avocados = [
   {
-    name: "Hass",
+    name: "Hass Avocado",
+    short: "The world’s most loved avocado",
+    desc: "Hass avocados are known for their rich, creamy texture and deep nutty flavor. They ripen evenly and are ideal for everyday use — from toast to guacamole.",
+    origin: "Mexico & California",
+    use: "Guacamole, Toast, Bowls",
     image: Hass,
-    desc: "Deep flavor, rich texture. The gold standard of avocados.",
   },
   {
-    name: "Fuerte",
+    name: "Fuerte Avocado",
+    short: "Smooth & balanced",
+    desc: "Fuerte offers a mild yet buttery taste with a smooth texture. A perfect choice for slicing and fresh preparations.",
+    origin: "Mexico",
+    use: "Salads, Slices",
     image: Fuerte,
-    desc: "Balanced taste with a buttery finish.",
   },
   {
-    name: "Reed",
+    name: "Reed Avocado",
+    short: "Seasonal & indulgent",
+    desc: "Large and creamy, Reed avocados are seasonal favorites with a dense texture, best enjoyed when you want something filling and rich.",
+    origin: "California",
+    use: "Spreads, Bowls",
     image: Reed,
-    desc: "Large, creamy and seasonal delight.",
   },
   {
-    name: "Zutano",
+    name: "Zutano Avocado",
+    short: "Light & refreshing",
+    desc: "Zutano avocados are lighter in flavor and easier to slice. Ideal for fresh cuts and light meals.",
+    origin: "Mexico",
+    use: "Fresh Cuts",
     image: Zutano,
-    desc: "Light, fresh and smooth.",
   },
   {
-    name: "Bacon",
+    name: "Bacon Avocado",
+    short: "Mild & firm",
+    desc: "With a gentle taste and firmer texture, Bacon avocados work well in sandwiches and layered dishes.",
+    origin: "California",
+    use: "Sandwiches",
     image: Bacon,
-    desc: "Mild, delicate flavor with a firm texture.",
   },
 ];
 
-export default function AvocadoExperience() {
+export default function AvocadoShowcase() {
   const [active, setActive] = useState(0);
+  const sections = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(Number(entry.target.dataset.index));
+          }
+        });
+      },
+      { threshold: 0.55 }
+    );
+
+    sections.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#0B1A13] text-white overflow-hidden flex items-center">
+    <section className="bg-[#0B1A13] text-white">
 
-      {/* Ambient gradients */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 -left-32 h-[420px] w-[420px] rounded-full bg-green-500/25 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-emerald-400/10 blur-[120px]" />
+      {/* Sticky image for desktop */}
+      <div className="hidden lg:flex sticky top-0 md:h-screen items-center justify-center pointer-events-none">
+        <img
+          src={avocados[active].image}
+          alt={avocados[active].name}
+          className="w-[380px] transition-all duration-500"
+        />
       </div>
 
-      {/* Grain texture */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]
-        bg-[radial-gradient(#ffffff_1px,transparent_1px)]
-        bg-[size:18px_18px]"
-      />
+      {/* Content */}
+      <div className="relative z-10">
+            <hr/>
+        {avocados.map((item, i) => (
+          <div
+            key={i}
+            ref={(el) => (sections.current[i] = el)}
+            data-index={i}
+            className="min-h-[50vh] flex items-center"
+          >
+        
+            <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-      {/* CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 w-full py-20">
+              {/* LEFT — TEXT */}
+              <div className="text-center lg:text-left">
+                <p className="uppercase text-green-400 tracking-widest text-xs mb-3">
+                  Avocado {String(i + 1).padStart(2, "0")}
+                </p>
 
-        {/* Header */}
-        <div className="mb-14 sm:mb-20">
-          <p className="uppercase tracking-[0.35em] text-green-400 text-xs sm:text-sm">
-            Our Selection
-          </p>
+                <h2 className="text-4xl sm:text-5xl font-semibold mb-3">
+                  {item.name}
+                </h2>
 
-          <h1 className="mt-4 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[1.1]">
-            Avocados,<br />Curated.
-          </h1>
-        </div>
+                <p className="text-green-300 text-sm mb-6">
+                  {item.short}
+                </p>
 
-        {/* Experience */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+                <p className="text-white/70 max-w-md mx-auto lg:mx-0 leading-relaxed mb-8">
+                  {item.desc}
+                </p>
 
-          {/* TEXT */}
-          <div className="order-2 lg:order-1 text-center lg:text-left">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-green-300">
-              {avocados[active].name}
-            </h2>
+                <div className="flex flex-col sm:flex-row gap-6 text-sm text-white/70 justify-center lg:justify-start">
+                  <div>
+                    <span className="text-green-400">Origin:</span>{" "}
+                    {item.origin}
+                  </div>
+                  <div>
+                    <span className="text-green-400">Best for:</span>{" "}
+                    {item.use}
+                  </div>
+                </div>
+              </div>
 
-            <p className="mt-4 sm:mt-6 text-base sm:text-lg text-white/70 max-w-md mx-auto lg:mx-0">
-              {avocados[active].desc}
-            </p>
-
-            {/* Selector */}
-            <div className="mt-10 sm:mt-12 flex justify-center lg:justify-start gap-5">
-              {avocados.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActive(i)}
-                  aria-label={`Select ${avocados[i].name}`}
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border transition-all duration-300
-                    ${
-                      active === i
-                        ? "bg-green-500 border-green-500 scale-110 shadow-lg shadow-green-500/40"
-                        : "border-white/30 hover:border-white/70 hover:scale-105"
-                    }`}
+              {/* RIGHT — IMAGE (mobile) */}
+              <div className="lg:hidden flex justify-center md:mt-10">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-[240px]"
                 />
-              ))}
+              </div>
+
             </div>
           </div>
-
-          {/* IMAGE */}
-          <div className="order-1 lg:order-2 relative flex justify-center items-center mb-10 lg:mb-0">
-            <div className="absolute w-[280px] h-[280px] sm:w-[420px] sm:h-[420px] rounded-full bg-green-500/20 blur-[100px]" />
-
-            <img
-              key={avocados[active].name}
-              src={avocados[active].image}
-              alt={avocados[active].name}
-              className="relative z-10 w-[220px] sm:w-[300px] md:w-[360px]
-                transition-all duration-700 ease-out"
-            />
-          </div>
-
-        </div>
+        ))}
       </div>
     </section>
   );
