@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const testimonials = [
   {
@@ -31,103 +31,107 @@ export default function Testimonials() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(timer);
+    const t = setInterval(() => {
+      setActive((p) => (p + 1) % testimonials.length);
+    }, 5500);
+    return () => clearInterval(t);
   }, []);
 
   return (
-    <section className="relative bg-[#0B1A13] text-white py-36 overflow-hidden">
+    <section className="relative bg-[#0B1A13] py-40 overflow-hidden text-white">
 
-      {/* Ambient glow */}
+      {/* Organic ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* <div className="absolute -top-40 -left-40 w-[480px] h-[480px] bg-green-500/20 blur-[180px]" /> */}
-        {/* <div className="absolute bottom-0 right-0 w-[380px] h-[380px] bg-emerald-400/10 blur-[160px]" /> */}
+        <div className="absolute -top-48 -left-40 w-[520px] h-[520px] bg-green-500/20 blur-[200px]" />
+        <div className="absolute bottom-0 right-0 w-[420px] h-[420px] bg-emerald-400/10 blur-[180px]" />
       </div>
 
-      {/* Grain */}
-      <div className="absolute inset-0 opacity-[0.04]
+      {/* Noise */}
+      <div className="absolute inset-0 opacity-[0.035]
         bg-[radial-gradient(#ffffff_1px,transparent_1px)]
-        bg-[size:18px_18px]" />
+        bg-[size:20px_20px]" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
 
-        <p className="uppercase tracking-[0.35em] text-green-400 text-xs mb-6">
-          Voices From the Field
+        {/* Header */}
+        <div className="text-center mb-28">
+          <p className="uppercase tracking-[0.4em] text-green-400 text-xs mb-6">
+            Real Voices
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-semibold">
+            Built on Trust, Not Claims
+          </h2>
+        </div>
+
+        {/* STACK */}
+        <div className="relative h-[420px] flex items-center justify-center">
+
+         {testimonials.map((t, i) => {
+  const offset = i - active;
+  const distance = Math.abs(offset);
+  const isActive = offset === 0;
+
+  return (
+    <div
+      key={i}
+      className="absolute transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)]"
+      style={{
+        transform: `
+          translateY(${offset * 36}px)
+          scale(${isActive ? 1 : 0.88})
+        `,
+        opacity: distance === 0 ? 1 : distance === 1 ? 0.35 : 0.15,
+        zIndex: 10 - distance,
+        filter: isActive
+          ? "blur(0px)"
+          : distance === 1
+          ? "blur(6px)"
+          : "blur(14px)",
+        pointerEvents: isActive ? "auto" : "none",
+      }}
+    >
+      <div className="relative w-[320px] sm:w-[420px] bg-white/5
+        backdrop-blur-xl border border-white/10
+        rounded-3xl px-10 py-12
+        shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+
+        {/* Floating quote */}
+        <div className="absolute -top-6 -left-4 text-7xl text-green-400/20">
+          ❝
+        </div>
+
+        <p className="text-lg sm:text-xl leading-relaxed text-white/90">
+          {t.quote}
         </p>
 
-        <h2 className="text-4xl sm:text-5xl font-semibold mb-20">
-          Trusted by the People Behind the Process
-        </h2>
-
-        <div className="relative max-w-3xl mx-auto">
-
-          {/* Quote mark */}
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-[120px] text-green-400/10 leading-none select-none">
-            ❝
-          </div>
-
-          {/* Testimonial content */}
-          <div
-            key={active}
-            className="transition-all duration-700 ease-out
-            opacity-100 translate-y-0 animate-[fadeUp_0.7s_ease]"
-          >
-            <p className="text-xl sm:text-2xl leading-relaxed text-white/90">
-              {testimonials[active].quote}
-            </p>
-
-            <div className="mt-12">
-              <p className="font-semibold text-white tracking-wide">
-                {testimonials[active].name}
-              </p>
-              <p className="text-sm text-white/60 mt-1">
-                {testimonials[active].role}
-              </p>
-            </div>
-          </div>
-
-          {/* Progress bar */}
-          <div className="mt-14 h-[2px] bg-white/10 overflow-hidden rounded-full">
-            <div
-              key={active}
-              className="h-full bg-green-400 animate-[progress_6s_linear]"
-            />
-          </div>
-
-          {/* Indicators */}
-          <div className="mt-8 flex justify-center gap-4">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all
-                ${active === i
-                  ? "bg-green-400 scale-125"
-                  : "bg-white/30 hover:bg-white/60"}`}
-              />
-            ))}
-          </div>
+        <div className="mt-10">
+          <p className="font-semibold tracking-wide">
+            {t.name}
+          </p>
+          <p className="text-sm text-white/60 mt-1">
+            {t.role}
+          </p>
         </div>
       </div>
+    </div>
+  );
+})}
+        </div>
 
-      <style jsx>{`
-        @keyframes progress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+        {/* Controls */}
+        <div className="mt-16 flex justify-center gap-3">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              className={`h-2 rounded-full transition-all duration-500
+              ${active === i
+                ? "w-10 bg-green-400"
+                : "w-2 bg-white/30 hover:bg-white/60"}`}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

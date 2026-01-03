@@ -1,62 +1,86 @@
-import React from 'react'
+import React from "react";
 
 const Hero = () => {
-return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#F6FAF5] to-[#ECF3EE]">
-      
-      {/* Soft background blur */}
-      <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-green-200/40 blur-3xl" />
+  return (
+    <section
+      className="relative overflow-hidden bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://static.wixstatic.com/media/nsplsh_ad899f126c274196bb48cadd66315902~mv2.jpg/v1/fill/w_1905,h_752,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_ad899f126c274196bb48cadd66315902~mv2.jpg')",
+      }}
+    >
+      {/* Dark + green overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-green-900/40" />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-24">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      {/* Soft ambient glow */}
+      <div className="pointer-events-none absolute -top-32 -right-32 h-[420px] w-[420px] rounded-full bg-green-400/20 blur-[160px]" />
+
+      {/* Grain */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]
+        bg-[radial-gradient(#ffffff_1px,transparent_1px)]
+        bg-[size:18px_18px]"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-32">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 
           {/* LEFT CONTENT */}
-          <div>
-            <span className="inline-block rounded-full border border-green-600/20 bg-white px-4 py-1 text-sm font-medium text-green-700">
-              🥑 Fresh • Honest • Reliable
+          <div className="text-white">
+
+            <span className="inline-flex items-center gap-2 rounded-full
+              border border-white/20 bg-white/10 px-5 py-1.5
+              text-sm font-medium backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-green-400" />
+              Fresh • Honest • Reliable
             </span>
 
-            <h1 className="mt-6 text-4xl font-semibold leading-tight text-gray-900 sm:text-5xl">
-              Delivering Fresh Avocados with
-              <span className="block text-green-700"> Honesty & Care</span>
+            <h1 className="mt-8 text-4xl font-semibold leading-[1.15] sm:text-5xl">
+              Delivering Fresh Avocados
+              <span className="relative mt-2 block text-green-300">
+                with Honesty & Care
+                <span className="absolute -bottom-2 left-0 h-[6px] w-32 rounded-full bg-green-400/40" />
+              </span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-gray-600">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
               AvoMart is built on transparency and quality. We focus on sourcing,
               handling, and showcasing avocados the right way — so people can
               trust what they consume.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-5">
               <a
                 href="#about"
-                className="rounded-xl bg-green-700 px-6 py-3 text-white shadow-lg shadow-green-700/20 transition hover:bg-green-800"
+                className="group inline-flex items-center gap-2
+                rounded-2xl bg-green-600 px-7 py-3.5 text-white
+                shadow-xl shadow-green-600/30 transition
+                hover:bg-green-700"
               >
                 Learn About Us
+                <span className="transition group-hover:translate-x-1">→</span>
               </a>
 
               <a
                 href="#contact"
-                className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-gray-800 transition hover:border-gray-400"
+                className="rounded-2xl border border-white/30
+                bg-white/10 px-7 py-3.5 text-white
+                backdrop-blur transition hover:bg-white/20"
               >
                 Get in Touch
               </a>
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
-          <div className="relative">
-            <div className="rounded-3xl bg-white p-4 shadow-2xl">
-              <img
-                src="/src/assets/avocado-hero.jpg"
-                alt="Fresh Avocados by AvoMart"
-                className="h-[420px] w-full rounded-2xl object-cover"
-              />
-            </div>
+          {/* RIGHT – FLOATING TRUST CARD */}
+          <div className="relative hidden lg:block">
+            <div className="absolute bottom-0 right-0 rounded-3xl
+              bg-white/90 px-7 py-6 backdrop-blur
+              shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
 
-            {/* Trust badge */}
-            <div className="absolute -bottom-6 -left-6 rounded-2xl bg-white px-5 py-4 shadow-xl">
-              <p className="text-sm font-medium text-gray-900">Quality Promise</p>
+              <p className="text-sm font-semibold text-gray-900">
+                Quality Promise
+              </p>
               <p className="mt-1 text-sm text-gray-600">
                 Hand-picked • Hygienic • Transparent
               </p>
@@ -67,6 +91,6 @@ return (
       </div>
     </section>
   );
-}
+};
 
-export default Hero
+export default Hero;
