@@ -12,7 +12,7 @@ function App() {
     <Header/>
             <OurStory/>
       <Avocados/>
-<WorkInProgress/>
+{/* <WorkInProgress/> */}
     </>
   )
 }
