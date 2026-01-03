@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import Hass from "../assets/Hass-Avocado.png";
-import Fuerte from "../assets/Fuerte-avocado.png";
+import Fuerte from "../assets/Fuerte-Avocado.png";
 import Reed from "../assets/Reed-Avocado.png";
 import Zutano from "../assets/Zutano-Avocado.png";
 import Bacon from "../assets/Bacon-Avocado.png";
