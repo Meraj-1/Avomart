@@ -34,68 +34,100 @@ export default function Testimonials() {
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % testimonials.length);
     }, 6000);
-
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative bg-[#0B1A13] text-white py-32 overflow-hidden">
+    <section className="relative bg-[#0B1A13] text-white py-36 overflow-hidden">
 
-      {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 -left-32 w-[420px] h-[420px] bg-green-500/20 blur-[160px]" />
-        <div className="absolute bottom-0 right-0 w-[360px] h-[360px] bg-emerald-400/10 blur-[140px]" />
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* <div className="absolute -top-40 -left-40 w-[480px] h-[480px] bg-green-500/20 blur-[180px]" /> */}
+        {/* <div className="absolute bottom-0 right-0 w-[380px] h-[380px] bg-emerald-400/10 blur-[160px]" /> */}
       </div>
 
       {/* Grain */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]
+      <div className="absolute inset-0 opacity-[0.04]
         bg-[radial-gradient(#ffffff_1px,transparent_1px)]
-        bg-[size:18px_18px]"
-      />
+        bg-[size:18px_18px]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
 
-        {/* Header */}
         <p className="uppercase tracking-[0.35em] text-green-400 text-xs mb-6">
-          Testimonials
+          Voices From the Field
         </p>
 
-        <h2 className="text-4xl sm:text-5xl font-semibold mb-16">
+        <h2 className="text-4xl sm:text-5xl font-semibold mb-20">
           Trusted by the People Behind the Process
         </h2>
 
-        {/* Testimonial */}
         <div className="relative max-w-3xl mx-auto">
 
-          <p className="text-xl sm:text-2xl text-white/90 leading-relaxed transition-all duration-700">
-            “{testimonials[active].quote}”
-          </p>
+          {/* Quote mark */}
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-[120px] text-green-400/10 leading-none select-none">
+            ❝
+          </div>
 
-          <div className="mt-10">
-            <p className="font-semibold text-white">
-              {testimonials[active].name}
+          {/* Testimonial content */}
+          <div
+            key={active}
+            className="transition-all duration-700 ease-out
+            opacity-100 translate-y-0 animate-[fadeUp_0.7s_ease]"
+          >
+            <p className="text-xl sm:text-2xl leading-relaxed text-white/90">
+              {testimonials[active].quote}
             </p>
-            <p className="text-sm text-white/60">
-              {testimonials[active].role}
-            </p>
+
+            <div className="mt-12">
+              <p className="font-semibold text-white tracking-wide">
+                {testimonials[active].name}
+              </p>
+              <p className="text-sm text-white/60 mt-1">
+                {testimonials[active].role}
+              </p>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-14 h-[2px] bg-white/10 overflow-hidden rounded-full">
+            <div
+              key={active}
+              className="h-full bg-green-400 animate-[progress_6s_linear]"
+            />
           </div>
 
           {/* Indicators */}
-          <div className="mt-14 flex justify-center gap-4">
+          <div className="mt-8 flex justify-center gap-4">
             {testimonials.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`w-3 h-3 rounded-full transition-all
-                  ${active === i
-                    ? "bg-green-400 scale-125"
-                    : "bg-white/30 hover:bg-white/60"}`}
+                className={`w-2.5 h-2.5 rounded-full transition-all
+                ${active === i
+                  ? "bg-green-400 scale-125"
+                  : "bg-white/30 hover:bg-white/60"}`}
               />
             ))}
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes progress {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }
