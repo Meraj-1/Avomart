@@ -1,6 +1,8 @@
 import Hero from "./components/Hero"
 import Header from "./components/Header"
 import OurStory from "./components/OurStory"
+import Avocados from "./components/Avacados"
+import WorkInProgress from "./components/WorkInprogress"
 
 
 function App() {
@@ -8,8 +10,9 @@ function App() {
   return (
     <>
     <Header/>
-      {/* <Hero/> */}
-      <OurStory/>
+            <OurStory/>
+      <Avocados/>
+<WorkInProgress/>
     </>
   )
 }
